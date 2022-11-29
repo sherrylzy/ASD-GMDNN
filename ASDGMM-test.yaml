@@ -1,0 +1,64 @@
+dev_directory : /data/zhaoyi/21/Dev21/
+eval_directory : /data/zhaoyi/21/Eva21/
+model_directory: ./model
+#torch_model_dictory: ./torch_model
+result_directory: ./result
+result_file: result.csv
+
+max_fpr: 0.1
+decision_threshold: 0.9
+
+feature:
+  n_mels: 128
+  n_frames: 5
+  n_hop_frames: 1
+  n_fft: 1024
+  hop_length: 512
+  power: 2.0
+
+feature-ast:
+  n_mels: 128
+ # n_frames: 1
+  n_fft: 1024
+  n_frames: 1
+  n_hop_frames: 1
+
+
+checkpoints:
+  pth:
+
+
+model:
+  model_type: 'AE-torch' #AE-keras
+  start_epoch: 0
+  max_epoch: 100
+  frac: [9:1]
+  batch_size: 521
+
+
+fit:
+  lr: 0.001
+  epochs: 2  #100
+  batch_size: 651 #512
+  shuffle: True
+  validation_split: 0.1
+  verbose: 1
+
+loggers:
+  tensorboard: true
+  wandb: true
+
+aegmm:
+  batch_size: 100 #1024,128,521,100
+  lambda_cov: 0.01 #0.005, 0.01
+  lambda_energy: 0.2 # 0.1, 0.2
+  latent_dim: 8 #hidden + 2 loss
+  lr: 0.1 #0.0001
+  lr_milestones: [50]
+  n_gmm: 5
+  num_epochs: 500 # 200, 400, 10000, 20000
+  patience: 50
+  save_path: ./model
+  savestep_epoch: 10000
+  img_dir: ./figure
+  print_iter: 10
